@@ -1,0 +1,58 @@
+@model InventarioViewModel
+@{
+    ViewData["Title"] = "Inventario";
+}
+
+<h2>Copias de «@Model.Pelicula.Titulo»</h2>
+<p class="text-muted">
+    @Model.Pelicula.CopiasDisponibles disponibles de @Model.Pelicula.TotalCopias copias.
+    <a asp-controller="Peliculas" asp-action="Index">Volver al catálogo</a>
+</p>
+
+<form asp-action="Agregar" method="post" class="row g-2 mb-4">
+    <input type="hidden" name="peliculaId" value="@Model.Pelicula.Id" />
+    <div class="col-auto">
+        <select name="tiendaId" class="form-select">
+            @foreach (var tienda in Model.Tiendas)
+            {
+                <option value="@tienda">Tienda @tienda</option>
+            }
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Agregar copia</button>
+    </div>
+</form>
+
+@if (!Model.Copias.Any())
+{
+    <div class="alert alert-warning">Esta película aún no tiene copias; nadie podrá alquilarla.</div>
+}
+else
+{
+    <table class="table table-striped align-middle">
+        <thead class="table-dark">
+            <tr><th>Copia</th><th>Tienda</th><th>Estado</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (var copia in Model.Copias)
+            {
+                <tr>
+                    <td>@copia.InventarioId</td>
+                    <td>@copia.TiendaId</td>
+                    <td>
+                        @if (copia.Alquilada) { <span class="badge bg-warning text-dark">Alquilada</span> }
+                        else { <span class="badge bg-success">Disponible</span> }
+                    </td>
+                    <td class="text-end">
+                        <form asp-action="Retirar" method="post" onsubmit="return confirm('¿Retirar esta copia?');">
+                            <input type="hidden" name="inventarioId" value="@copia.InventarioId" />
+                            <input type="hidden" name="peliculaId" value="@Model.Pelicula.Id" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Retirar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

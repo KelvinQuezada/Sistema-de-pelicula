@@ -1,0 +1,420 @@
+/* ================================================================
+   VARIABLES DE TEMA - Sakila Rental
+   ================================================================ */
+:root {
+    --color-primario: #6366f1;
+    --color-primario-oscuro: #4f46e5;
+    --color-secundario: #ec4899;
+    --color-exito: #10b981;
+    --color-alerta: #f59e0b;
+    --color-peligro: #ef4444;
+    --color-fondo: #f8fafc;
+    --color-superficie: #ffffff;
+    --color-texto: #0f172a;
+    --color-texto-suave: #64748b;
+    --color-borde: #e2e8f0;
+    --sombra-suave: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --sombra-media: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+    --radius: 12px;
+    --transicion: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ================================================================
+   MODO OSCURO
+   ================================================================ */
+[data-bs-theme="dark"] {
+    --color-fondo: #0f172a;
+    --color-superficie: #1e293b;
+    --color-texto: #f1f5f9;
+    --color-texto-suave: #94a3b8;
+    --color-borde: #334155;
+    --sombra-suave: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --sombra-media: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* ================================================================
+   BASE
+   ================================================================ */
+html {
+    font-size: 14px;
+    scroll-behavior: smooth;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    margin-bottom: 0;
+    transition: var(--transicion);
+}
+
+a {
+    color: var(--color-primario);
+    text-decoration: none;
+    transition: var(--transicion);
+}
+
+a:hover {
+    color: var(--color-primario-oscuro);
+}
+
+[data-bs-theme="dark"] a {
+    color: #818cf8;
+}
+
+[data-bs-theme="dark"] a:hover {
+    color: #a5b4fc;
+}
+
+/* ================================================================
+   NAVBAR
+   ================================================================ */
+.navbar {
+    background: linear-gradient(135deg, var(--color-primario), var(--color-secundario)) !important;
+    border: none;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: white !important;
+}
+
+.navbar-brand span.text-primary {
+    color: white !important;
+}
+
+.navbar .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: var(--radius);
+    transition: var(--transicion);
+}
+
+.navbar .nav-link:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.5);
+    color: white;
+}
+
+.btn-outline-light:hover {
+    background: white;
+    color: var(--color-primario);
+    border-color: white;
+}
+
+.btn-light {
+    color: var(--color-texto) !important;
+}
+
+/* ================================================================
+   TOGGLE DE TEMA
+   ================================================================ */
+#btnTema {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#iconoTema {
+    font-size: 1.1rem;
+}
+
+/* ================================================================
+   TARJETAS DE PELÍCULA
+   ================================================================ */
+.card {
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radius);
+    background: var(--color-superficie);
+    transition: var(--transicion);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-media);
+    border-color: var(--color-primario);
+}
+
+.card-img-top {
+    height: 220px;
+    object-fit: cover;
+    background: linear-gradient(45deg, var(--color-borde), var(--color-fondo));
+}
+
+.card-body {
+    padding: 1.25rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-texto);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.card-text {
+    color: var(--color-texto-suave);
+    font-size: 0.9rem;
+    margin-bottom: auto;
+}
+
+.card-footer {
+    background: transparent;
+    border-top: 1px solid var(--color-borde);
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.badge {
+    font-weight: 600;
+    padding: 0.4em 0.8em;
+    border-radius: 20px;
+}
+
+/* ================================================================
+   BOTONES
+   ================================================================ */
+.btn {
+    border-radius: var(--radius);
+    font-weight: 600;
+    transition: var(--transicion);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-primario), var(--color-primario-oscuro));
+    border: none;
+    box-shadow: var(--sombra-suave);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-media);
+    filter: brightness(1.1);
+}
+
+.btn-outline-primary {
+    color: var(--color-primario);
+    border-color: var(--color-primario);
+    background: transparent;
+}
+
+.btn-outline-primary:hover {
+    background: var(--color-primario);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ================================================================
+   FORMULARIOS
+   ================================================================ */
+.form-control, .form-select {
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    background: var(--color-superficie);
+    color: var(--color-texto);
+    transition: var(--transicion);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.15);
+    background: var(--color-superficie);
+    color: var(--color-texto);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--color-texto);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* ================================================================
+   ALERTAS
+   ================================================================ */
+.alert {
+    border: none;
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+[data-bs-theme="dark"] .alert-success {
+    background: #064e3b;
+    color: #a7f3d0;
+}
+
+.alert-danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+[data-bs-theme="dark"] .alert-danger {
+    background: #7f1d1d;
+    color: #fecaca;
+}
+
+.alert-info {
+    background: #dbeafe;
+    color: #1e3a8a;
+}
+
+[data-bs-theme="dark"] .alert-info {
+    background: #1e3a8a;
+    color: #dbeafe;
+}
+
+/* ================================================================
+   PAGINACIÓN
+   ================================================================ */
+.pagination .page-link {
+    color: var(--color-primario);
+    border: 1px solid var(--color-borde);
+    background: var(--color-superficie);
+    border-radius: 8px;
+    margin: 0 0.2rem;
+    transition: var(--transicion);
+}
+
+.pagination .page-link:hover {
+    background: var(--color-primario);
+    color: white;
+    border-color: var(--color-primario);
+}
+
+.pagination .page-item.disabled .page-link {
+    color: var(--color-texto-suave);
+    border-color: var(--color-borde);
+    background: var(--color-superficie);
+    cursor: not-allowed;
+}
+
+/* ================================================================
+   TABLAS
+   ================================================================ */
+.table {
+    background: var(--color-superficie);
+    color: var(--color-texto);
+}
+
+.table thead {
+    background: var(--color-fondo);
+}
+
+.table th {
+    border-color: var(--color-borde);
+    font-weight: 600;
+    color: var(--color-texto);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table td {
+    border-color: var(--color-borde);
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background: rgba(99, 102, 241, 0.05);
+}
+
+[data-bs-theme="dark"] .table-hover tbody tr:hover {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+footer {
+    background: var(--color-superficie);
+    border-top: 1px solid var(--color-borde);
+    margin-top: auto;
+}
+
+#linkTemaFooter {
+    color: var(--color-texto-suave);
+    font-weight: 600;
+    transition: var(--transicion);
+}
+
+#linkTemaFooter:hover {
+    color: var(--color-primario);
+}
+
+/* ================================================================
+   UTILIDADES
+   ================================================================ */
+.shadow-sm {
+    box-shadow: var(--sombra-suave) !important;
+}
+
+.min-vh-100 {
+    min-height: 100vh !important;
+}
+
+.flex-grow-1 {
+    flex-grow: 1 !important;
+}
+
+.mt-auto {
+    margin-top: auto !important;
+}
+
+.gap-3 {
+    gap: 1rem !important;
+}
+
+/* ================================================================
+   RESPONSIVO
+   ================================================================ */
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .navbar .d-flex.align-items-center.gap-3 {
+        justify-content: center;
+        width: 100%;
+        margin-top: 1rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 1rem;
+    }
+
+    .card-img-top {
+        height: 180px;
+    }
+}

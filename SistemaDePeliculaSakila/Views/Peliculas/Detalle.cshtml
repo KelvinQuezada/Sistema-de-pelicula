@@ -1,0 +1,43 @@
+@model PeliculaCatalogo
+@{
+    ViewData["Title"] = Model.Titulo;
+    var usuario = Context.Session.ObtenerUsuario();
+}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h2>@Model.Titulo</h2>
+        <p class="lead">@Model.Descripcion</p>
+        <dl class="row">
+            <dt class="col-sm-3">Clasificación</dt><dd class="col-sm-9">@Model.Clasificacion</dd>
+            <dt class="col-sm-3">Año</dt><dd class="col-sm-9">@Model.Anio</dd>
+            <dt class="col-sm-3">Duración</dt><dd class="col-sm-9">@Model.Duracion min</dd>
+            <dt class="col-sm-3">Tarifa</dt><dd class="col-sm-9">$@Model.Tarifa.ToString("0.00")</dd>
+            <dt class="col-sm-3">Disponibilidad</dt>
+            <dd class="col-sm-9">
+                @if (Model.Disponible)
+                {
+                    <span class="badge bg-success">@Model.CopiasDisponibles de @Model.TotalCopias copias disponibles</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">Sin copias disponibles (@Model.TotalCopias en total)</span>
+                }
+            </dd>
+        </dl>
+
+        @if (usuario?.EsCliente == true)
+        {
+            <form asp-controller="Alquileres" asp-action="Alquilar" method="post">
+                <input type="hidden" name="peliculaId" value="@Model.Id" />
+                <button type="submit" class="btn btn-success" disabled="@(!Model.Disponible)">Alquilar</button>
+            </form>
+        }
+        @if (usuario?.EsAdministrador == true)
+        {
+            <a class="btn btn-outline-secondary" asp-action="Editar" asp-route-id="@Model.Id">Editar</a>
+            <a class="btn btn-outline-secondary" asp-controller="Inventario" asp-action="Index" asp-route-peliculaId="@Model.Id">Administrar copias</a>
+        }
+        <a class="btn btn-link" asp-action="Index">Volver al catálogo</a>
+    </div>
+</div>

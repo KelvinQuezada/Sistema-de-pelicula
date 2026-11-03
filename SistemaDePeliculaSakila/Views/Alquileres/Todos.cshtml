@@ -1,0 +1,18 @@
+@model List<AlquilerItem>
+@{
+    ViewData["Title"] = "Alquileres";
+    var soloPendientes = (bool)ViewBag.SoloPendientes;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Alquileres realizados (últimos 200)</h2>
+    @if (soloPendientes)
+    {
+        <a class="btn btn-outline-secondary" asp-action="Todos">Ver todos</a>
+    }
+    else
+    {
+        <a class="btn btn-outline-warning" asp-action="Todos" asp-route-soloPendientes="true">Solo pendientes de devolución</a>
+    }
+</div>
+<partial name="_TablaAlquileres" model="@(new TablaAlquileresViewModel { Items = Model, MostrarCliente = true, PermitirDevolver = false })" />

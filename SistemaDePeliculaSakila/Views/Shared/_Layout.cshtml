@@ -1,0 +1,103 @@
+@{
+    var usuario = Context.Session.ObtenerUsuario();
+}
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sakila Rental</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark mb-4 shadow-sm">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Peliculas" asp-action="Index">
+                    <span class="badge bg-warning text-dark fs-5 p-2">🎬</span>
+                    <span class="fw-bold fs-4">Sakila<span class="text-primary">Rental</span></span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="menu">
+                    <ul class="navbar-nav me-auto">
+                        @if (usuario is not null)
+                        {
+                            <li class="nav-item"><a class="nav-link" asp-controller="Peliculas" asp-action="Index">Catálogo</a></li>
+                            @if (usuario.EsCliente)
+                            {
+                                <li class="nav-item"><a class="nav-link" asp-controller="Alquileres" asp-action="MisAlquileres">Mis alquileres</a></li>
+                            }
+                            @if (usuario.EsAdministrador)
+                            {
+                                <li class="nav-item"><a class="nav-link" asp-controller="Peliculas" asp-action="Crear">Nueva película</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Alquileres" asp-action="Todos">Alquileres</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Reportes" asp-action="PeliculasMasAlquiladas">Reporte</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Reportes" asp-action="Accesos">Accesos</a></li>
+                            }
+                        }
+                    </ul>
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- Toggle de tema claro/oscuro -->
+                        <button class="btn btn-outline-light btn-sm rounded-circle p-2" id="btnTema" title="Cambiar tema" aria-label="Cambiar tema">
+                            <i class="bi bi-moon-stars-fill" id="iconoTema"></i>
+                        </button>
+                        @if (usuario is not null)
+                        {
+                            <form asp-controller="Cuenta" asp-action="Logout" method="post" class="d-flex align-items-center gap-2">
+                                <span class="navbar-text text-light">
+                                    @usuario.NombreCompleto
+                                    <span class="badge @(usuario.EsAdministrador ? "bg-warning text-dark" : "bg-info text-dark")">@usuario.Rol</span>
+                                </span>
+                                <button type="submit" class="btn btn-outline-light btn-sm">Cerrar sesión</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="d-flex gap-2">
+                                <a class="btn btn-outline-light btn-sm" asp-controller="Cuenta" asp-action="Login">Iniciar sesión</a>
+                                <a class="btn btn-light btn-sm" asp-controller="Cuenta" asp-action="Registro">Registrarse</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container flex-grow-1">
+        <main role="main" class="pb-5">
+            <partial name="_Mensajes" />
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top mt-auto">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-8">
+                    <p class="mb-0">&copy; 2026 <strong>Sakila Rental</strong> - Sistema de renta de películas.</p>
+                    <p class="small text-secondary">Desarrollado con ASP.NET Core y Bootstrap.</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <a class="text-decoration-none" href="#" id="linkTemaFooter" title="Cambiar tema">
+                        <i class="bi bi-moon-stars-fill" id="iconoTemaFooter"></i>
+                        <span class="ms-1" id="textoTemaFooter">Modo oscuro</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

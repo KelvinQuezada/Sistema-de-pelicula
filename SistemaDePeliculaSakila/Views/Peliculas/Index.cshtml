@@ -1,0 +1,49 @@
+@model PaginaPeliculas
+@{
+    ViewData["Title"] = "Catálogo";
+    var usuario = Context.Session.ObtenerUsuario();
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Catálogo de películas</h2>
+    @if (usuario?.EsAdministrador == true)
+    {
+        <a class="btn btn-primary" asp-action="Crear">Nueva película</a>
+    }
+</div>
+
+<form method="get" class="row g-2 mb-4">
+    <div class="col-md-8">
+        <input name="busqueda" value="@Model.Busqueda" class="form-control" placeholder="Buscar por título" />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-primary">Buscar</button>
+        <a class="btn btn-link" asp-action="Index">Limpiar</a>
+    </div>
+</form>
+
+@if (!Model.Items.Any())
+{
+    <div class="alert alert-info">No se encontraron películas.</div>
+}
+
+<div class="row row-cols-1 row-cols-md-3 g-3">
+    @foreach (var pelicula in Model.Items)
+    {
+        <div class="col">
+            <partial name="_PeliculaTarjeta" model="pelicula" />
+        </div>
+    }
+</div>
+
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(Model.Pagina <= 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-busqueda="@Model.Busqueda" asp-route-pagina="@(Model.Pagina - 1)">Anterior</a>
+        </li>
+        <li class="page-item disabled"><span class="page-link">Página @Model.Pagina de @Model.TotalPaginas</span></li>
+        <li class="page-item @(Model.Pagina >= Model.TotalPaginas ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-busqueda="@Model.Busqueda" asp-route-pagina="@(Model.Pagina + 1)">Siguiente</a>
+        </li>
+    </ul>
+</nav>

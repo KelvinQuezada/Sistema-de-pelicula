@@ -1,0 +1,33 @@
+@model List<AccesoItem>
+@{
+    ViewData["Title"] = "Registro de accesos";
+}
+
+<h2 class="mb-3">Registro de inicios de sesión (últimos 100)</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Aún no hay accesos registrados.</div>
+}
+else
+{
+    <table class="table table-striped" style="max-width: 800px;">
+        <thead class="table-dark">
+            <tr><th>Fecha</th><th>Usuario</th><th>Resultado</th><th>IP</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var acceso in Model)
+            {
+                <tr>
+                    <td>@acceso.Fecha.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    <td>@acceso.Usuario</td>
+                    <td>
+                        @if (acceso.Exitoso) { <span class="badge bg-success">Exitoso</span> }
+                        else { <span class="badge bg-danger">Fallido</span> }
+                    </td>
+                    <td>@acceso.Ip</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

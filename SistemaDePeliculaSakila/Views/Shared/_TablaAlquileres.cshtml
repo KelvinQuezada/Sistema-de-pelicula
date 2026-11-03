@@ -1,0 +1,56 @@
+@model TablaAlquileresViewModel
+
+@if (!Model.Items.Any())
+{
+    <div class="alert alert-info">No hay alquileres para mostrar.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Película</th>
+                    @if (Model.MostrarCliente) { <th>Cliente</th> }
+                    <th>Fecha de alquiler</th>
+                    <th>Estado</th>
+                    @if (Model.PermitirDevolver) { <th></th> }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model.Items)
+                {
+                    <tr>
+                        <td>@a.Id</td>
+                        <td>@a.Pelicula</td>
+                        @if (Model.MostrarCliente) { <td>@a.Cliente</td> }
+                        <td>@a.FechaAlquiler.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>
+                            @if (a.Devuelto)
+                            {
+                                <span class="badge bg-secondary">Devuelto el @a.FechaDevolucion!.Value.ToString("yyyy-MM-dd HH:mm")</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Pendiente de devolución</span>
+                            }
+                        </td>
+                        @if (Model.PermitirDevolver)
+                        {
+                            <td class="text-end">
+                                @if (!a.Devuelto)
+                                {
+                                    <form asp-controller="Alquileres" asp-action="Devolver" method="post">
+                                        <input type="hidden" name="alquilerId" value="@a.Id" />
+                                        <button type="submit" class="btn btn-sm btn-success">Devolver</button>
+                                    </form>
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

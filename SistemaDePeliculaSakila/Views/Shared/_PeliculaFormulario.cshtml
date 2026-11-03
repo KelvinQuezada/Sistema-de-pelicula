@@ -1,0 +1,49 @@
+@model Pelicula
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<input type="hidden" asp-for="Id" />
+
+<div class="row g-3">
+    <div class="col-md-8">
+        <label asp-for="Titulo" class="form-label"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="Clasificacion" class="form-label"></label>
+        <select asp-for="Clasificacion" class="form-select"
+                asp-items="@(new SelectList(new[] { "G", "PG", "PG-13", "R", "NC-17" }))"></select>
+        <span asp-validation-for="Clasificacion" class="text-danger"></span>
+    </div>
+    <div class="col-12">
+        <label asp-for="Descripcion" class="form-label"></label>
+        <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+    <div class="col-md-3">
+        <label asp-for="AnioLanzamiento" class="form-label"></label>
+        <input asp-for="AnioLanzamiento" class="form-control" />
+        <span asp-validation-for="AnioLanzamiento" class="text-danger"></span>
+    </div>
+    <div class="col-md-3">
+        <label asp-for="Duracion" class="form-label"></label>
+        <input asp-for="Duracion" class="form-control" />
+        <span asp-validation-for="Duracion" class="text-danger"></span>
+    </div>
+    <div class="col-md-2">
+        <label asp-for="DuracionAlquiler" class="form-label"></label>
+        <input asp-for="DuracionAlquiler" class="form-control" />
+        <span asp-validation-for="DuracionAlquiler" class="text-danger"></span>
+    </div>
+    <div class="col-md-2">
+        <label asp-for="TarifaAlquiler" class="form-label"></label>
+        <input asp-for="TarifaAlquiler" class="form-control" />
+        <span asp-validation-for="TarifaAlquiler" class="text-danger"></span>
+    </div>
+    <div class="col-md-2">
+        <label asp-for="CostoReposicion" class="form-label"></label>
+        <input asp-for="CostoReposicion" class="form-control" />
+        <span asp-validation-for="CostoReposicion" class="text-danger"></span>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+@model List<ReporteItem>
+@{
+    ViewData["Title"] = "Películas más alquiladas";
+}
+
+<h2 class="mb-3">Las 10 películas más alquiladas</h2>
+
+<table class="table table-striped" style="max-width: 640px;">
+    <thead class="table-dark">
+        <tr><th>Película</th><th class="text-end">Cantidad de alquileres</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Pelicula</td>
+                <td class="text-end">@item.CantidadAlquileres</td>
+            </tr>
+        }
+    </tbody>
+</table>

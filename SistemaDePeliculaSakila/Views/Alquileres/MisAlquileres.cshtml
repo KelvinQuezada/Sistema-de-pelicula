@@ -1,0 +1,7 @@
+@model List<AlquilerItem>
+@{
+    ViewData["Title"] = "Mis alquileres";
+}
+
+<h2 class="mb-3">Mis alquileres</h2>
+<partial name="_TablaAlquileres" model="@(new TablaAlquileresViewModel { Items = Model, MostrarCliente = false, PermitirDevolver = true })" />

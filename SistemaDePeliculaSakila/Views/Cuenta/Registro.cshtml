@@ -1,0 +1,65 @@
+@model RegistroViewModel
+@{
+    ViewData["Title"] = "Crear cuenta";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="mb-3">Crear cuenta de cliente</h3>
+                <form asp-action="Registro" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="Nombre" class="form-label"></label>
+                            <input asp-for="Nombre" class="form-control" />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Apellido" class="form-label"></label>
+                            <input asp-for="Apellido" class="form-control" />
+                            <span asp-validation-for="Apellido" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-8">
+                            <label asp-for="Correo" class="form-label"></label>
+                            <input asp-for="Correo" class="form-control" />
+                            <span asp-validation-for="Correo" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="TiendaId" class="form-label"></label>
+                            <select asp-for="TiendaId" class="form-select">
+                                @foreach (var tienda in Model.Tiendas)
+                                {
+                                    <option value="@tienda">Tienda @tienda</option>
+                                }
+                            </select>
+                            <span asp-validation-for="TiendaId" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="NombreUsuario" class="form-label"></label>
+                            <input asp-for="NombreUsuario" class="form-control" autocomplete="username" />
+                            <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Contrasena" class="form-label"></label>
+                            <input asp-for="Contrasena" class="form-control" autocomplete="new-password" />
+                            <span asp-validation-for="Contrasena" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="ConfirmarContrasena" class="form-label"></label>
+                            <input asp-for="ConfirmarContrasena" class="form-control" autocomplete="new-password" />
+                            <span asp-validation-for="ConfirmarContrasena" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-4">Registrarme</button>
+                </form>
+                <p class="text-center mt-3 mb-0">¿Ya tiene cuenta? <a asp-action="Login">Inicie sesión</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
